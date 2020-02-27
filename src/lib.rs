@@ -230,7 +230,7 @@ impl Client {
             None,
             Arc::new(move |msg| {
                 if let Some(sender) = mgr.sender_for_inbox(&msg.subject) {
-                    sender.send(msg.clone()).unwrap(); // TODO: kill the unwrap
+                    sender.send(msg.clone()); // TODO: was an unwrap -> on failure kills the whole client, unnecessary in some cases
                     mgr.remove_inbox(&msg.subject)
                 }
                 Ok(())
